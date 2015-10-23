@@ -27,8 +27,10 @@ RUN ln -s ./var/Ranks.sqlite . ;\
     ln -s ./var/whitelist.sqlite . ;\
     ln -s ./var/MojangAPI.sqlite . ;
 
+COPY ./files/webadmin.ini ./
+
+COPY ./files/supervisord.conf /etc/supervisor/
+
 EXPOSE 25565 8080
 
-RUN echo "[WebAdmin]\nEnabled=1\nPort=8080\n\n[User:cubeadmin]\nPassword=cubepass\n" > webadmin.ini 
-
-#CMD ["/Server/Cuberite"]
+CMD ["/usr/bin/supervisord"]
